@@ -5,13 +5,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header(" Elements ")]
+    [SerializeField] private CrowdSystem crowdSystem;
+
     [Header(" Settings ")]
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float roadWidth;
 
     [Header(" Control ")]
     [SerializeField] private float slideSpeed;
     private Vector3 clickedPlayerPosition;
     private Vector3 clickedScreenPosition;
+
 
 
     private void Update()
@@ -34,12 +39,17 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetMouseButton(0))
         {
-            float xScreenDifferent = Input.mousePosition.x - clickedScreenPosition.x;
-            xScreenDifferent /= Screen.width;
-            xScreenDifferent *= slideSpeed;
+            float xScreenDifference = Input.mousePosition.x - clickedScreenPosition.x;
+
+            xScreenDifference /= Screen.width;
+            xScreenDifference *= slideSpeed;
 
             Vector3 position = transform.position;
-            position.x = clickedPlayerPosition.x + xScreenDifferent;
+            position.x = clickedPlayerPosition.x + xScreenDifference;
+
+            position.x = Mathf.Clamp(position.x, -roadWidth / 2 + crowdSystem.GetCrowdRadius(),
+                roadWidth / 2 - crowdSystem.GetCrowdRadius());
+
             transform.position = position;
         }
     }
