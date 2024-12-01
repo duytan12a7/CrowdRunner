@@ -7,10 +7,9 @@ public class CrowdCounter : MonoBehaviour
 {
     [Header(" Elements ")]
     [SerializeField] private TextMeshPro crowdCounterText;
-    [SerializeField] private Transform runnersParent;
 
     private void Update()
     {
-        crowdCounterText.text = runnersParent.childCount.ToString();
+        crowdCounterText.text = GameManager.Instance.RunnersParent.childCount.ToString();
     }
 }

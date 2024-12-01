@@ -8,6 +8,11 @@ public class PlayerDetection : MonoBehaviour
     [Header(" Elements ")]
     [SerializeField] private CrowdSystem crowdSystem;
 
+    private void Start()
+    {
+        crowdSystem = GameManager.Instance.CrowdSystem;
+    }
+
     private void Update()
     {
         DetectedCollider();
