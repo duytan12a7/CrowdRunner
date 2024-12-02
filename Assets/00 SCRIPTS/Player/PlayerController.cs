@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header(" Elements ")]
     [SerializeField] private CrowdSystem crowdSystem;
+    [SerializeField] private PlayerAnimator playerAnimator;
+    private bool canMove;
 
     [Header(" Settings ")]
     [SerializeField] private float moveSpeed;
@@ -17,10 +19,18 @@ public class PlayerController : MonoBehaviour
     private Vector3 clickedPlayerPosition;
     private Vector3 clickedScreenPosition;
 
+    private void Start()
+    {
+        crowdSystem = GameManager.Instance.CrowdSystem;
+        playerAnimator = GetComponent<PlayerAnimator>();
 
+        GameManager.OnGameStateChanged += GameStateChanged;
+    }
 
     private void Update()
     {
+        if (!canMove) return;
+
         MoveFoward();
         ManageControl();
     }
@@ -52,5 +62,27 @@ public class PlayerController : MonoBehaviour
 
             transform.position = position;
         }
+    }
+
+    private void GameStateChanged(GameManager.GameState gameState)
+    {
+        if (gameState == GameManager.GameState.Game)
+            StartMoving();
+        else if (gameState == GameManager.GameState.Menu)
+            StopMoving();
+    }
+
+    private void StartMoving()
+    {
+        canMove = true;
+
+        playerAnimator.Run();
+    }
+
+    private void StopMoving()
+    {
+        canMove = false;
+
+        playerAnimator.Idle();
     }
 }

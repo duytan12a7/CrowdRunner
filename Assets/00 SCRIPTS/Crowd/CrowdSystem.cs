@@ -12,6 +12,11 @@ public class CrowdSystem : MonoBehaviour
     [Header(" Settings ")]
     [SerializeField] private float radius;
 
+    private void Start()
+    {
+        runnersParent = GameManager.Instance.RunnersParent;
+    }
+
     private void Update()
     {
         PlaceRunners();
