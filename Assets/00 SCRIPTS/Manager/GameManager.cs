@@ -35,4 +35,6 @@ public class GameManager : MonoBehaviour
         this.gameState = gameState;
         OnGameStateChanged?.Invoke(gameState);
     }
+
+    public bool IsGameState() => gameState == GameState.Game;
 }
