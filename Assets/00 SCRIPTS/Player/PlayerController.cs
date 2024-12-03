@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private static PlayerController instance;
+    public static PlayerController Instance => instance;
+
     [Header(" Elements ")]
     [SerializeField] private CrowdSystem crowdSystem;
     [SerializeField] private PlayerAnimator playerAnimator;
@@ -18,6 +21,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float slideSpeed;
     private Vector3 clickedPlayerPosition;
     private Vector3 clickedScreenPosition;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     private void Start()
     {
@@ -84,5 +95,10 @@ public class PlayerController : MonoBehaviour
         canMove = false;
 
         playerAnimator.Idle();
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameStateChanged;
     }
 }

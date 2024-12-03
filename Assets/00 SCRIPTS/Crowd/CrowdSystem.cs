@@ -73,7 +73,8 @@ public class CrowdSystem : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            Instantiate(runnerPrefab, runnersParent);
+            GameObject runner = Instantiate(runnerPrefab, runnersParent);
+            runner.GetComponentInParent<PlayerAnimator>().Run();
         }
     }
 
