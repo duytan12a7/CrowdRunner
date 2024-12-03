@@ -2299,14 +2299,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d843cc175368d6e4a8c086ef74b96e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkPrefab:
-  - {fileID: 6354491688971754666, guid: 001be1e1125af424fbfae61acf0e0ffa, type: 3}
-  - {fileID: 5945300796010390430, guid: b714b6b698f855a48a2e28e2616edd27, type: 3}
-  - {fileID: 8142169534799449572, guid: 71f216ff56ba00043b53dc4a85397d90, type: 3}
-  levelChunks:
-  - {fileID: 6354491688971754666, guid: 001be1e1125af424fbfae61acf0e0ffa, type: 3}
-  - {fileID: 8142169534799449572, guid: 3dbadaa37d3a731418325564891acaaf, type: 3}
-  - {fileID: 8142169534799449572, guid: 40748be71176469439d58a4b10efd469, type: 3}
+  levelDatas:
+  - {fileID: 11400000, guid: fa784f78d3c7a904f85d75ea5bd0884b, type: 2}
 --- !u!4 &1551474086
 Transform:
   m_ObjectHideFlags: 0
