@@ -5,17 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerDetection : MonoBehaviour
 {
-    [Header(" Elements ")]
-    [SerializeField] private CrowdSystem crowdSystem;
-
-    private void Start()
-    {
-        crowdSystem = GameManager.Instance.CrowdSystem;
-    }
 
     private void Update()
     {
-        DetectedCollider();
+        if (GameManager.Instance.IsGameState())
+            DetectedCollider();
     }
 
     private void DetectedCollider()
@@ -33,12 +27,14 @@ public class PlayerDetection : MonoBehaviour
 
                 doors.Disable();
 
-                crowdSystem.ApplyBonus(bonusType, bonusAmount);
+                GameManager.Instance.CrowdSystem.ApplyBonus(bonusType, bonusAmount);
             }
             else if (collider.tag == Global.FINISH_TAG)
             {
                 PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level") + 1);
-                SceneManager.LoadScene(0);
+
+                GameManager.Instance.SetGameState(GameManager.GameState.LevelComplete);
+                // SceneManager.LoadScene(0);
             }
         }
     }

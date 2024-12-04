@@ -19,7 +19,13 @@ public class CrowdSystem : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance.IsGameState())
+            return;
+
         PlaceRunners();
+
+        if (runnersParent.childCount < 1)
+            GameManager.Instance.SetGameState(GameManager.GameState.GameOver);
     }
 
     private void PlaceRunners()
