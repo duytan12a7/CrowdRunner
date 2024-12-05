@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
 
     private enum State { Idle, Running }
 
-    private State state = State.Idle;
+    private State state;
 
     private void Update()
     {
@@ -50,7 +50,8 @@ public class Enemy : MonoBehaviour
 
                 runner.SetTarget();
                 targetRunner = runner.transform;
-                
+                PlayerController.Instance.SetMoveSpeed(4f);
+
                 StartRunningToTarget();
             }
         }

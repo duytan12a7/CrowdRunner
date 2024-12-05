@@ -51,6 +51,11 @@ public class PlayerController : MonoBehaviour
         transform.position += Vector3.forward * moveSpeed * Time.deltaTime; /* Vector3.forward (0, 0, 1) */
     }
 
+    public void SetMoveSpeed(float speed)
+    {
+        moveSpeed = speed;
+    }
+
     private void ManageControl()
     {
         if (Input.GetMouseButtonDown(0))
@@ -79,7 +84,7 @@ public class PlayerController : MonoBehaviour
     {
         if (gameState == GameManager.GameState.Game)
             StartMoving();
-        else if (gameState == GameManager.GameState.Menu)
+        else if (gameState == GameManager.GameState.GameOver || gameState == GameManager.GameState.LevelComplete)
             StopMoving();
     }
 

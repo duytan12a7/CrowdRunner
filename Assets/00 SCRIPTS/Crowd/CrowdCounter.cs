@@ -14,6 +14,9 @@ public class CrowdCounter : MonoBehaviour
         crowdCounterText.text = parent.childCount.ToString();
 
         if (parent.childCount < 1)
+        {
+            PlayerController.Instance.SetMoveSpeed(Global.MOVE_SPEED);
             Destroy(gameObject);
+        }
     }
 }
