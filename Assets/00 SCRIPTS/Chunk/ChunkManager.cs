@@ -8,7 +8,7 @@ public class ChunkManager : MonoBehaviour
     public static ChunkManager Instance => instance;
 
     [Header(" Elements ")]
-    [SerializeField] private LevelData[] levelDatas;
+    [SerializeField] private GameObject[] levelDatas;
     private Transform finishLine;
 
     private void Awake()
@@ -28,27 +28,16 @@ public class ChunkManager : MonoBehaviour
 
     private void GenerateLevel()
     {
+        Debug.Log(GetCountLevel());
         int currentLevel = GetIntLevel();
-
-        LevelData level = levelDatas[0];
-        CreateLevel(level.chunks);
+        CreateLevel(levelDatas[currentLevel]);
     }
 
-    private void CreateLevel(Chunk[] levelChunks)
+    private void CreateLevel(GameObject level)
     {
         Vector3 chunkPosition = Vector3.zero;
 
-        for (int i = 0; i < levelChunks.Length; i++)
-        {
-            Chunk chunkToCreate = levelChunks[i];
-
-            if (i > 0)
-                chunkPosition.z += chunkToCreate.GetLength() / 2;
-
-            Chunk chunkInstance = Instantiate(chunkToCreate, chunkPosition, Quaternion.identity, transform);
-
-            chunkPosition.z += chunkInstance.GetLength() / 2;
-        }
+        GameObject chunkInstance = Instantiate(level, chunkPosition, Quaternion.identity, transform);
     }
 
     public float GetFinishLineZ()
@@ -57,5 +46,7 @@ public class ChunkManager : MonoBehaviour
     }
 
     public int GetIntLevel() => PlayerPrefs.GetInt("level", 0);
+
+    public int GetCountLevel() => levelDatas.Length;
 
 }

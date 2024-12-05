@@ -14,11 +14,11 @@ public class PlayerDetection : MonoBehaviour
 
     private void DetectedCollider()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 1);
+        Collider[] detectedColliders = Physics.OverlapSphere(transform.position, 1);
 
-        if (colliders.Length < 1) return;
+        if (detectedColliders.Length < 1) return;
 
-        foreach (Collider collider in colliders)
+        foreach (Collider collider in detectedColliders)
         {
             if (collider.gameObject.TryGetComponent<Doors>(out Doors doors))
             {
@@ -31,10 +31,12 @@ public class PlayerDetection : MonoBehaviour
             }
             else if (collider.tag == Global.FINISH_TAG)
             {
-                PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level") + 1);
+                if (PlayerPrefs.GetInt("level") >= ChunkManager.Instance.GetCountLevel() - 1)
+                    PlayerPrefs.SetInt("level", 0);
+                else
+                    PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level") + 1);
 
                 GameManager.Instance.SetGameState(GameManager.GameState.LevelComplete);
-                // SceneManager.LoadScene(0);
             }
         }
     }

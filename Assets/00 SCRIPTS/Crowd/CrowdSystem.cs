@@ -22,13 +22,13 @@ public class CrowdSystem : MonoBehaviour
         if (!GameManager.Instance.IsGameState())
             return;
 
-        PlaceRunners();
+        FermatSpiralPlace();
 
         if (runnersParent.childCount < 1)
             GameManager.Instance.SetGameState(GameManager.GameState.GameOver);
     }
 
-    private void PlaceRunners()
+    private void FermatSpiralPlace()
     {
         for (int i = 0; i < runnersParent.childCount; i++)
         {
