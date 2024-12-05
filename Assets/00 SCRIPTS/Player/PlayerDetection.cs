@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System;
 
 public class PlayerDetection : MonoBehaviour
 {
+    [Header(" Events ")]
+    public static Action OnDoorsHit;
 
     private void Update()
     {
@@ -28,6 +30,8 @@ public class PlayerDetection : MonoBehaviour
                 doors.Disable();
 
                 GameManager.Instance.CrowdSystem.ApplyBonus(bonusType, bonusAmount);
+
+                OnDoorsHit?.Invoke();
             }
             else if (collider.tag == Global.FINISH_TAG)
             {
