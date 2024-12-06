@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
             return;
 
         transform.position = Vector3.MoveTowards(transform.position, targetRunner.position, Time.deltaTime * moveSpeed);
-        transform.forward = (targetRunner.transform.position - transform.position).normalized;
+        // transform.forward = (targetRunner.transform.position - transform.position).normalized;
 
         if (Vector3.Distance(transform.position, targetRunner.position) < 1.5f)
             Explode();
