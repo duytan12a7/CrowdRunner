@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject levelCompletePanel;
     [SerializeField] private GameObject settingPanel;
+    [SerializeField] private GameObject shopPanel;
+    [SerializeField] private ShopManager shopManager;
     [SerializeField] private Slider progressBar;
     [SerializeField] private Text levelText;
 
@@ -33,6 +35,7 @@ public class UIManager : MonoBehaviour
         gameOverPanel.SetActive(false);
         levelCompletePanel.SetActive(false);
         settingPanel.SetActive(false);
+        shopPanel.SetActive(false);
     }
 
     private void Update()
@@ -88,13 +91,15 @@ public class UIManager : MonoBehaviour
         progressBar.value = progress;
     }
 
-    public void ShowSettingPanel()
+    public void ShowSettingPanel() => settingPanel.SetActive(true);
+
+    public void HideSettingPanel() => settingPanel.SetActive(false);
+
+    public void ShowShopPanel()
     {
-        settingPanel.SetActive(true);
+        shopPanel.SetActive(true);
+        shopManager.UpdatePurchaseButton();
     }
 
-    public void HideSettingPanel()
-    {
-        settingPanel.SetActive(false);
-    }
+    public void HideShopPanel() => shopPanel.SetActive(false);
 }
