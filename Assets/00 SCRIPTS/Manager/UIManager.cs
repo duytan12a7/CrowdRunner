@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gamePanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject levelCompletePanel;
+    [SerializeField] private GameObject settingPanel;
     [SerializeField] private Slider progressBar;
     [SerializeField] private Text levelText;
 
@@ -31,6 +32,7 @@ public class UIManager : MonoBehaviour
         gamePanel.SetActive(false);
         gameOverPanel.SetActive(false);
         levelCompletePanel.SetActive(false);
+        settingPanel.SetActive(false);
     }
 
     private void Update()
@@ -84,5 +86,15 @@ public class UIManager : MonoBehaviour
 
         float progress = PlayerController.Instance.transform.position.z / ChunkManager.Instance.GetFinishLineZ();
         progressBar.value = progress;
+    }
+
+    public void ShowSettingPanel()
+    {
+        settingPanel.SetActive(true);
+    }
+
+    public void HideSettingPanel()
+    {
+        settingPanel.SetActive(false);
     }
 }
