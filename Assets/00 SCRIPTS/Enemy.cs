@@ -66,9 +66,13 @@ public class Enemy : MonoBehaviour
         transform.forward = (targetRunner.transform.position - transform.position).normalized;
 
         if (Vector3.Distance(transform.position, targetRunner.position) < 1.5f)
-        {
-            Destroy(gameObject);
-            Destroy(targetRunner.gameObject);
-        }
+            Explode();
+    }
+
+    private void Explode()
+    {
+        Destroy(gameObject);
+        Destroy(targetRunner.gameObject);
+        SoundsManager.OnRunnerDie?.Invoke();
     }
 }

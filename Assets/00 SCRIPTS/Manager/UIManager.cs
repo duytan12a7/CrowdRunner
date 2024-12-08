@@ -41,9 +41,15 @@ public class UIManager : MonoBehaviour
     private void GameStateChange(GameManager.GameState state)
     {
         if (state == GameManager.GameState.GameOver)
+        {
             ShowGameOver();
+            SoundsManager.OnGameOver?.Invoke();
+        }
         else if (state == GameManager.GameState.LevelComplete)
+        {
             ShowLevelComplete();
+            SoundsManager.OnLevelComplete?.Invoke();
+        }
     }
 
     public void PlayButtonPressed()

@@ -28,7 +28,6 @@ public class ChunkManager : MonoBehaviour
 
     private void GenerateLevel()
     {
-        Debug.Log(GetCountLevel());
         int currentLevel = GetIntLevel();
         CreateLevel(levelDatas[currentLevel]);
     }
