@@ -23,10 +23,10 @@ public class Enemy : MonoBehaviour
         switch (state)
         {
             case State.Idle:
-                SearchForTarget();
+                FindTargetRunner();
                 break;
             case State.Running:
-                RunTowardsTarget();
+                AttackRunner();
                 break;
         }
     }
@@ -37,15 +37,15 @@ public class Enemy : MonoBehaviour
         state = State.Running;
     }
 
-    private void SearchForTarget()
+    private void FindTargetRunner()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, searchRadius);
+        Collider[] detectedRunners = Physics.OverlapSphere(transform.position, searchRadius);
 
-        for (int i = 0; i < colliders.Length; i++)
+        for (int i = 0; i < detectedRunners.Length; i++)
         {
-            if (colliders[i].TryGetComponent(out Runner runner))
+            if (detectedRunners[i].TryGetComponent(out Runner runner))
             {
-                if (runner.IsTarget())
+                if (runner.IsTarget() || targetRunner != null)
                     continue;
 
                 runner.SetTarget();
@@ -57,14 +57,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void RunTowardsTarget()
+    private void AttackRunner()
     {
         if (targetRunner == null)
             return;
 
         transform.position = Vector3.MoveTowards(transform.position, targetRunner.position, Time.deltaTime * moveSpeed);
+        transform.forward = (targetRunner.transform.position - transform.position).normalized;
 
-        if (Vector3.Distance(transform.position, targetRunner.position) < 0.1f)
+        if (Vector3.Distance(transform.position, targetRunner.position) < 1.5f)
         {
             Destroy(gameObject);
             Destroy(targetRunner.gameObject);

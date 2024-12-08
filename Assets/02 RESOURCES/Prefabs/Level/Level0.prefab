@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 217711260830585028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.95, z: 114.5146}
-  m_LocalScale: {x: 14, y: 10, z: 239.02881}
+  m_LocalPosition: {x: 0, y: -4.95, z: 58.6655}
+  m_LocalScale: {x: 14, y: 10, z: 127.33065}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5645420792963548220}
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 5645420792963548220}
   - component: {fileID: 6354491688971754666}
   m_Layer: 0
-  m_Name: Level1
+  m_Name: Level0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,12 +241,12 @@ PrefabInstance:
     - target: {fileID: 8052236775897551703, guid: 745c99c227b805149a9d705e6ac075cd,
         type: 3}
       propertyPath: leftDoorBonusAmount
-      value: 55
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8052236775897551703, guid: 745c99c227b805149a9d705e6ac075cd,
         type: 3}
       propertyPath: rightDoorBonusAmount
-      value: 60
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -345,7 +345,7 @@ PrefabInstance:
     - target: {fileID: 8052236775897551703, guid: 745c99c227b805149a9d705e6ac075cd,
         type: 3}
       propertyPath: rightDoorBonusAmount
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -513,7 +513,7 @@ PrefabInstance:
     - target: {fileID: 7624622534845810390, guid: 4b56d5d8629cdf14883f85163971811d,
         type: 3}
       propertyPath: amount
-      value: 62
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -597,7 +597,7 @@ PrefabInstance:
     - target: {fileID: 7624622534845810390, guid: 4b56d5d8629cdf14883f85163971811d,
         type: 3}
       propertyPath: amount
-      value: 100
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -641,7 +641,7 @@ PrefabInstance:
     - target: {fileID: 7466860856349413060, guid: 22125c01b4c2f4f40b2306292ceda83a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 182.2
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 7466860856349413060, guid: 22125c01b4c2f4f40b2306292ceda83a,
         type: 3}
@@ -760,7 +760,7 @@ PrefabInstance:
     - target: {fileID: 7624622534845810390, guid: 4b56d5d8629cdf14883f85163971811d,
         type: 3}
       propertyPath: amount
-      value: 67
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -958,7 +958,7 @@ PrefabInstance:
     - target: {fileID: 8052236775897551703, guid: 745c99c227b805149a9d705e6ac075cd,
         type: 3}
       propertyPath: rightDoorBonusAmount
-      value: 100
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

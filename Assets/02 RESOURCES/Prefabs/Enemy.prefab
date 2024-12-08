@@ -1740,8 +1740,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efbdeab3657ce134c9ceffe9fa7ac1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  searchRadius: 5
-  moveSpeed: 10
+  searchRadius: 7
+  moveSpeed: 15
 --- !u!1 &6710112055830614891
 GameObject:
   m_ObjectHideFlags: 0

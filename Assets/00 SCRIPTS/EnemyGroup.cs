@@ -6,16 +6,27 @@ using UnityEngine;
 public class EnemyGroup : MonoBehaviour
 {
     [Header("Elements")]
-    [SerializeField] private Transform enemyPrefab;
+    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform enemyParent;
 
     [Header(" Settings ")]
     [SerializeField] private float radius;
     [SerializeField] private int amount;
 
+    private bool isEnable = false;
+
     private void Start()
     {
         GenerateEnemies();
+    }
+
+    private void Update()
+    {
+        if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) < 30f && !isEnable)
+        {
+            isEnable = true;
+            EnableAllEnemies();
+        }
     }
 
     private void GenerateEnemies()
@@ -25,7 +36,18 @@ public class EnemyGroup : MonoBehaviour
             Vector3 childLocalPosition = GetEnemyLocalPosition(i);
             Vector3 childWorldPosition = enemyParent.TransformPoint(childLocalPosition);
 
-            Instantiate(enemyPrefab, childWorldPosition, Quaternion.identity, enemyParent);
+            GameObject newEnemy = Instantiate(enemyPrefab, childWorldPosition, Quaternion.identity, enemyParent);
+            newEnemy.SetActive(false);
+        }
+
+        enemyParent.GetChild(0).gameObject.SetActive(true);
+    }
+
+    private void EnableAllEnemies()
+    {
+        for (int i = 1; i < enemyParent.childCount; i++)
+        {
+            enemyParent.GetChild(i).gameObject.SetActive(true);
         }
     }
 
