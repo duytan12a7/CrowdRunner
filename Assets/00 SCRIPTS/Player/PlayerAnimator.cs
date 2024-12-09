@@ -16,7 +16,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         for (int i = 0; i < runnersParent.childCount; i++)
         {
-            Animator runnerAnimator = runnersParent.GetChild(i).GetComponent<Animator>();
+            Animator runnerAnimator = runnersParent.GetChild(i).GetComponent<Runner>().GetAnimator();
             runnerAnimator.Play("Idle");
         }
     }
@@ -25,7 +25,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         for (int i = 0; i < runnersParent.childCount; i++)
         {
-            Animator runnerAnimator = runnersParent.GetChild(i).GetComponent<Animator>();
+            Animator runnerAnimator = runnersParent.GetChild(i).GetComponent<Runner>().GetAnimator();
             runnerAnimator.Play("Run");
         }
     }
