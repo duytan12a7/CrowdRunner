@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
         DefaultPanel();
 
         progressBar.value = 0f;
-        levelText.text = "Level " + (ChunkManager.Instance.GetIntLevel() + 1);
+        levelText.text = "Level " + (RoadManager.Instance.GetIntLevel() + 1);
 
         GameManager.OnGameStateChanged += GameStateChange;
     }
@@ -87,7 +87,7 @@ public class UIManager : MonoBehaviour
         if (!GameManager.Instance.IsGameState())
             return;
 
-        float progress = PlayerController.Instance.transform.position.z / ChunkManager.Instance.GetFinishLineZ();
+        float progress = PlayerController.Instance.transform.position.z / RoadManager.Instance.GetFinishLineZ();
         progressBar.value = progress;
     }
 
