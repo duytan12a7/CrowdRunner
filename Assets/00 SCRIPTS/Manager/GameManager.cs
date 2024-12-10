@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public Transform RunnersParent { get; private set; }
 
     [field: SerializeField]
-    public CrowdSystem CrowdSystem { get; private set; }
+    public SquadFormation SquadFormation { get; private set; }
 
     private void Awake()
     {
@@ -37,4 +37,8 @@ public class GameManager : MonoBehaviour
     }
 
     public bool IsGameState() => gameState == GameState.Game;
+
+    public bool IsLevelComplete() => gameState == GameState.LevelComplete;
+
+    public bool IsGameover() => gameState == GameState.GameOver;
 }

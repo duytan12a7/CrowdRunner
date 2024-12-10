@@ -15,7 +15,7 @@ public class CrowdCounter : MonoBehaviour
 
         if (parent.childCount < 1)
         {
-            PlayerController.Instance.SetMoveSpeed(Global.MOVE_SPEED);
+            SquadController.Instance.SetMoveSpeed(Global.MOVE_SPEED);
             Destroy(gameObject);
         }
     }

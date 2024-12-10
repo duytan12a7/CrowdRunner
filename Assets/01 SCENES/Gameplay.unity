@@ -1691,7 +1691,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.28550866, y: 0.000000016490189, z: -0.0000000049125717, w: 0.95837617}
+  m_LocalRotation: {x: 0.28550866, y: -0.000000016490183, z: 0.0000000049125704, w: 0.95837617}
   m_LocalPosition: {x: 0, y: 13, z: -13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2099,7 +2099,6 @@ GameObject:
   m_Component:
   - component: {fileID: 392350456}
   - component: {fileID: 392350457}
-  - component: {fileID: 392350458}
   m_Layer: 0
   m_Name: Bubble
   m_TagString: Untagged
@@ -2175,20 +2174,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &392350458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392350455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73ba26d98217e9a40a2312dfd993e843, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crowdCounterText: {fileID: 1748134181}
-  parent: {fileID: 2121163709}
 --- !u!1 &409529724
 GameObject:
   m_ObjectHideFlags: 0
@@ -2757,7 +2742,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 448609862}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.28550866, y: 0.000000016490189, z: -0.0000000049125717, w: 0.95837617}
+  m_LocalRotation: {x: 0.28550866, y: -0.000000016490183, z: 0.0000000049125704, w: 0.95837617}
   m_LocalPosition: {x: 0, y: 13, z: -13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4732,12 +4717,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1337062323}
   - component: {fileID: 1337062324}
-  - component: {fileID: 1337062325}
   - component: {fileID: 1337062326}
   - component: {fileID: 1337062327}
   - component: {fileID: 1337062328}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Squad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4772,27 +4756,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8972f09a66bd42447a5393645b59b64f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crowdSystem: {fileID: 1337062325}
+  squadFormation: {fileID: 2121163710}
   playerAnimator: {fileID: 1337062327}
+  bonusRunnersParent: {fileID: 0}
   moveSpeed: 6
   roadWidth: 14
   slideSpeed: 5
---- !u!114 &1337062325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1337062322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 917f90d774dcbc045a2bf1f0bba16e02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  runnersParent: {fileID: 2121163709}
-  runnerPrefab: {fileID: 6488935222663587917, guid: 9f074d8e35666934aaa414ec84d597d8,
-    type: 3}
-  radius: 0.3
 --- !u!114 &1337062326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6616,7 +6585,7 @@ GameObject:
   - component: {fileID: 1748134182}
   - component: {fileID: 1748134181}
   m_Layer: 0
-  m_Name: Crowd Counter Text
+  m_Name: Squad Amount Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7318,7 +7287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <RunnersParent>k__BackingField: {fileID: 2121163709}
-  <CrowdSystem>k__BackingField: {fileID: 1337062325}
+  <SquadFormation>k__BackingField: {fileID: 2121163710}
 --- !u!1 &2072945938
 GameObject:
   m_ObjectHideFlags: 0
@@ -7666,8 +7635,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2121163709}
+  - component: {fileID: 2121163710}
+  - component: {fileID: 2121163711}
   m_Layer: 0
-  m_Name: Runners Parent
+  m_Name: Squad Formation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7689,6 +7660,37 @@ Transform:
   - {fileID: 1507820791812999300}
   m_Father: {fileID: 1337062323}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2121163710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121163708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917f90d774dcbc045a2bf1f0bba16e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groupAmountBubble: {fileID: 392350455}
+  squadAmountText: {fileID: 1748134181}
+  runnerPrefab: {fileID: 6488935222663587917, guid: 9f074d8e35666934aaa414ec84d597d8,
+    type: 3}
+  bonusRunnersParent: {fileID: 2121163711}
+  radiusFactor: 0.3
+--- !u!114 &2121163711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121163708}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c46447fe0c9d64ea9862c270927589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xSpacing: 0.5
 --- !u!1 &2122879311
 GameObject:
   m_ObjectHideFlags: 3
@@ -7798,6 +7800,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2121163709}
     m_Modifications:
+    - target: {fileID: 582893427429190498, guid: 9f074d8e35666934aaa414ec84d597d8,
+        type: 3}
+      propertyPath: squadSelector
+      value: 
+      objectReference: {fileID: 1337062328}
     - target: {fileID: 1299995251586992539, guid: 9f074d8e35666934aaa414ec84d597d8,
         type: 3}
       propertyPath: m_LocalPosition.x

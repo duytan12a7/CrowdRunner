@@ -287,7 +287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4855926338925303201}
   - component: {fileID: 723120611921569906}
-  - component: {fileID: 2635620024342380927}
+  - component: {fileID: 3313036461030841296}
   m_Layer: 0
   m_Name: Bubble
   m_TagString: Untagged
@@ -363,7 +363,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2635620024342380927
+--- !u!114 &3313036461030841296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1273569803049048934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73ba26d98217e9a40a2312dfd993e843, type: 3}
+  m_Script: {fileID: 11500000, guid: f453f36f236f70b43b7f39bfa34bd672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   crowdCounterText: {fileID: 4538043580703585131}

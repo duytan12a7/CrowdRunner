@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
 
                 runner.SetTarget();
                 targetRunner = runner.transform;
-                PlayerController.Instance.SetMoveSpeed(4f);
+                SquadController.Instance.SetMoveSpeed(4f);
 
                 StartRunningToTarget();
             }
