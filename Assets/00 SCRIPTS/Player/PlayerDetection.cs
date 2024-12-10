@@ -35,10 +35,7 @@ public class PlayerDetection : MonoBehaviour
             }
             else if (collider.tag == Global.FINISH_TAG)
             {
-                if (PlayerPrefs.GetInt("level") >= ChunkManager.Instance.GetCountLevel() - 1)
-                    PlayerPrefs.SetInt("level", 0);
-                else
-                    PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level") + 1);
+                PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level") + 1);
 
                 GameManager.Instance.SetGameState(GameManager.GameState.LevelComplete);
             }

@@ -2,14 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChunkManager : MonoBehaviour
+public class RoadManager : MonoBehaviour
 {
-    private static ChunkManager instance;
-    public static ChunkManager Instance => instance;
+    private static RoadManager instance;
+    public static RoadManager Instance => instance;
 
     [Header(" Elements ")]
-    [SerializeField] private GameObject[] levelDatas;
+    public RoadChunk initialChunk;
+    public RoadChunk finishChunk;
+    private RoadChunk previousChunk;
+    public LevelSequence[] levelSequences;
+
+    [Header(" Settings ")]
+    private Vector3 finishPos;
+    private Vector3 spawnPos;
     private Transform finishLine;
+    List<RoadChunk> levelChunks = new();
 
     private void Awake()
     {
@@ -21,31 +29,71 @@ public class ChunkManager : MonoBehaviour
 
     private void Start()
     {
-        GenerateLevel();
+        SpawnLevel();
 
         finishLine = GameObject.FindWithTag(Global.FINISH_TAG).transform;
     }
 
-    private void GenerateLevel()
+    private void SpawnLevel()
     {
+        ClearLevel();
+
+        levelChunks.Clear();
+
+        spawnPos = Vector3.zero;
+
         int currentLevel = GetIntLevel();
-        CreateLevel(levelDatas[currentLevel]);
+
+        if (currentLevel >= levelSequences.Length)
+            SpawnLevelSequence(Random.Range(0, levelSequences.Length));
+        else
+            SpawnLevelSequence(currentLevel);
     }
 
-    private void CreateLevel(GameObject level)
+    private void SpawnLevelSequence(int currentLevel)
     {
-        Vector3 chunkPosition = Vector3.zero;
+        for (int i = 0; i < levelSequences[currentLevel].chunks.Length; i++)
+        {
+            RoadChunk chunkToSpawn = levelSequences[currentLevel].chunks[i];
+            Instantiate(chunkToSpawn, spawnPos, Quaternion.identity, transform);
 
-        GameObject chunkInstance = Instantiate(level, chunkPosition, Quaternion.identity, transform);
+            spawnPos.z += chunkToSpawn.length;
+            previousChunk = chunkToSpawn;
+            levelChunks.Add(chunkToSpawn);
+        }
+
+        // We can then spawn the finish chunk
+        Instantiate(finishChunk, spawnPos, Quaternion.identity, transform);
+
+        levelChunks.Add(finishChunk);
+
+        // Store the finish pos for progression use
+        finishPos = spawnPos;
     }
 
-    public float GetFinishLineZ()
+
+    private void ClearLevel()
     {
-        return finishLine.position.z;
+        while (transform.childCount > 0)
+        {
+            Transform t = transform.GetChild(0);
+            t.SetParent(null);
+            Destroy(t.gameObject);
+        }
     }
+
+    public Vector3 GetFinishLinePosition() => finishPos;
+
+    public float GetFinishLineZ() => finishLine.position.z;
+
+    public static Vector3 GetFinishPosition() => instance.GetFinishLinePosition();
 
     public int GetIntLevel() => PlayerPrefs.GetInt("level", 0);
 
-    public int GetCountLevel() => levelDatas.Length;
+}
 
+[System.Serializable]
+public struct LevelSequence
+{
+    public RoadChunk[] chunks;
 }
