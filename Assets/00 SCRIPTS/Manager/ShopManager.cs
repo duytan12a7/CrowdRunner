@@ -17,7 +17,10 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private Sprite[] skins;
 
     [Header(" Pricing")]
-    [SerializeField] private int skinPrice;
+    [SerializeField] private int currentPrice;
+    private int basePrice = 500;
+    private int priceIncreaseStep = 250;
+    private int productsSold;
     [SerializeField] private TextMeshProUGUI priceText;
 
     [Header(" Events")]
@@ -25,7 +28,7 @@ public class ShopManager : MonoBehaviour
 
     private void Awake()
     {
-        priceText.text = skinPrice.ToString();
+        CalculatePrice();
         UnlockSkin(0);
     }
 
@@ -37,6 +40,12 @@ public class ShopManager : MonoBehaviour
         yield return null;
 
         SelectSkin(GetLastSelectedSkin());
+    }
+    private void CalculatePrice()
+    {
+        productsSold = PlayerPrefs.GetInt(Global.PrefsTag.ProductsSold, 0);
+        currentPrice = basePrice + (priceIncreaseStep * productsSold);
+        priceText.text = currentPrice.ToString();
     }
 
     private void UnlockSkin(int skinIndex)
@@ -100,14 +109,17 @@ public class ShopManager : MonoBehaviour
         UnlockSkin(randomSkinButton);
         SelectSkin(randomSkinButton);
 
-        DataManager.Instance.UseCoins(skinPrice);
+        DataManager.Instance.UseCoins(currentPrice);
+
+        PlayerPrefs.SetInt(Global.PrefsTag.ProductsSold, PlayerPrefs.GetInt(Global.PrefsTag.ProductsSold) + 1);
+        CalculatePrice();
 
         UpdatePurchaseButton();
     }
 
     public void UpdatePurchaseButton()
     {
-        if (DataManager.Instance.GetCoins() < skinPrice)
+        if (DataManager.Instance.GetCoins() < currentPrice)
             purchaseButton.interactable = false;
         else
             purchaseButton.interactable = true;

@@ -364,9 +364,9 @@ MonoBehaviour:
   leftDoorText: {fileID: 7110380275436720756}
   collider: {fileID: 1519886433937110285}
   rightDoorBonusType: 0
-  rightDoorBonusAmount: 30
+  rightDoorBonusAmount: 15
   leftDoorBonusType: 0
-  leftDoorBonusAmount: 20
+  leftDoorBonusAmount: 40
   bonusColor: {r: 0, g: 0.27663565, b: 1, a: 1}
   penaltyColor: {r: 1, g: 0.067741126, b: 0.058490515, a: 1}
 --- !u!65 &1519886433937110285
@@ -575,7 +575,7 @@ GameObject:
   - component: {fileID: 5645420792963548220}
   - component: {fileID: 6354491688971754666}
   m_Layer: 0
-  m_Name: Door Chunk (+20 ; +30)
+  m_Name: Door Chunk (+40 ; +15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

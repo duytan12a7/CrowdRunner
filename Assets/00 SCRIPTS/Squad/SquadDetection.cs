@@ -34,11 +34,9 @@ public class SquadDetection : MonoBehaviour
 
                 OnDoorsHit?.Invoke();
             }
-            else if (collider.tag == Global.FINISH_TAG)
+            else if (collider.gameObject.TryGetComponent<FinishLine>(out FinishLine finishLine))
             {
-                // PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level") + 1);
-
-                // GameManager.Instance.SetGameState(GameManager.GameState.LevelComplete);
+                finishLine.Disable();
 
                 OnFinishLineCrossed?.Invoke();
             }

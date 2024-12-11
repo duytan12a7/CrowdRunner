@@ -287,7 +287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4855926338925303201}
   - component: {fileID: 723120611921569906}
-  - component: {fileID: 3428914476266603260}
+  - component: {fileID: 3865994610099483649}
   m_Layer: 0
   m_Name: Bubble
   m_TagString: Untagged
@@ -363,7 +363,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3428914476266603260
+--- !u!114 &3865994610099483649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
