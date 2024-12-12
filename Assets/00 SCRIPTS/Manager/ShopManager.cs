@@ -24,22 +24,13 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI priceText;
 
     [Header(" Events")]
-    public static Action<int> OnSkinSelected;
+    public static Action<int> OnSetSkin;
 
-    private void Awake()
+    private void Start()
     {
         CalculatePrice();
-        UnlockSkin(0);
-    }
-
-    IEnumerator Start()
-    {
         ConfigureButtons();
         UpdatePurchaseButton();
-
-        yield return null;
-
-        SelectSkin(GetLastSelectedSkin());
     }
     private void CalculatePrice()
     {
@@ -62,6 +53,8 @@ public class ShopManager : MonoBehaviour
 
     private void ConfigureButtons()
     {
+        UnlockSkin(0);
+        
         for (int i = 0; i < skinButtons.Length; i++)
         {
             bool unlocked = PlayerPrefs.GetInt("SkinButton" + i) == 1;
@@ -80,6 +73,8 @@ public class ShopManager : MonoBehaviour
 
     private void SelectSkin(int skinIndex)
     {
+        OnSetSkin?.Invoke(skinIndex);
+
         for (int i = 0; i < skinButtons.Length; i++)
         {
             if (skinIndex == i)
@@ -87,9 +82,6 @@ public class ShopManager : MonoBehaviour
             else
                 skinButtons[i].Deselect();
         }
-
-        OnSkinSelected?.Invoke(skinIndex);
-        SetLastSelectedSkin(skinIndex);
     }
 
     public void PurchaseSkin()
@@ -124,8 +116,4 @@ public class ShopManager : MonoBehaviour
         else
             purchaseButton.interactable = true;
     }
-
-    private int GetLastSelectedSkin() => PlayerPrefs.GetInt("lastSelectedSkin", 0);
-
-    private void SetLastSelectedSkin(int skinIndex) => PlayerPrefs.SetInt("lastSelectedSkin", skinIndex);
 }

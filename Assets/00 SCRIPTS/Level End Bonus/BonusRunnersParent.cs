@@ -8,9 +8,9 @@ public class BonusRunnersParent : MonoBehaviour
     public static Action<int> OnLineDropped;
 
     [Header("Settings")]
-    [SerializeField] private float xSpacing; [SerializeField] 
+    [SerializeField] private float xSpacing; [SerializeField]
     private float rewardMultiplier = 36f;
-    [SerializeField] private float bonusTriggerThreshold = 1.7f;
+    [SerializeField] private float bonusTriggerThreshold = 2f;
     [SerializeField] private float lineHeight = 1.7f;
     private List<RunnerData> runnersData = new List<RunnerData>();
 
@@ -115,7 +115,7 @@ public class BonusRunnersParent : MonoBehaviour
 
     private void DropRunnersLine(int lineIndex)
     {
-        foreach (var data in runnersData)
+        foreach (RunnerData data in runnersData)
         {
             if (data.line == lineIndex)
                 data.runner.Stop();
@@ -140,15 +140,14 @@ public class BonusRunnersParent : MonoBehaviour
 
     private void CompleteLevel()
     {
-        UIManager.setLevelCompleteDelegate?.Invoke();
+        if (endStairsBonus == null)
+            return;
 
-        if (endStairsBonus != null)
-        {
-            int bonusIndex = Mathf.Max(0, currentStairBonusIndex - 2);
-            int rewardCoins = (int)(endStairsBonus.GetBonus(bonusIndex) * rewardMultiplier);
-            Debug.Log($"Bonus: {endStairsBonus.GetBonus(bonusIndex)}");
-            DataManager.Instance.AddCoins(rewardCoins);
-        }
+        int bonusIndex = Mathf.Max(0, currentStairBonusIndex - 2);
+        int rewardCoins = (int)(endStairsBonus.GetBonus(bonusIndex) * rewardMultiplier);
+
+        DataManager.Instance.AddCoins(rewardCoins);
+        UIManager.setLevelCompleteDelegate?.Invoke(rewardCoins);
     }
 }
 

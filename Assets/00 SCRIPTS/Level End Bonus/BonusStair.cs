@@ -14,4 +14,13 @@ public class BonusStair : MonoBehaviour
         stairRenderer.material.color = stairColor;
         bonusText.text = bonusString;
     }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        Runner runner = col.GetComponent<Runner>();
+        if (!runner) return;
+
+        Animator runnerAnimator = runner.GetAnimator();
+        runnerAnimator.Play("Idle");
+    }
 }
