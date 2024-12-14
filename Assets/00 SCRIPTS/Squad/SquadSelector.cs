@@ -9,17 +9,23 @@ public class SquadSelector : MonoBehaviour
     [SerializeField] private RunnerSelector runnerSelectorPrefab;
     private int currentSkinIndex;
 
-    private void Start()
+    private void Awake()
     {
-        ShopManager.OnSkinSelected += SelectSkin;
+        ShopManager.OnSetSkin += SetSkin;
+        LoadData();
     }
 
     private void OnDestroy()
     {
-        ShopManager.OnSkinSelected -= SelectSkin;
+        ShopManager.OnSetSkin -= SetSkin;
     }
 
-    public void SelectSkin(int skinIndex)
+    private void Start()
+    {
+        SetSkin(currentSkinIndex);
+    }
+
+    public void SetSkin(int skinIndex)
     {
         currentSkinIndex = skinIndex;
 
@@ -27,5 +33,16 @@ public class SquadSelector : MonoBehaviour
             runnersParent.GetChild(i).GetComponent<RunnerSelector>().SelectRunner(skinIndex);
 
         runnerSelectorPrefab.SelectRunner(skinIndex);
+        SaveData();
+    }
+
+    private void SaveData()
+    {
+        PlayerPrefs.SetInt("LastSkin", currentSkinIndex);
+    }
+
+    private void LoadData()
+    {
+        currentSkinIndex = PlayerPrefs.GetInt("LastSkin");
     }
 }

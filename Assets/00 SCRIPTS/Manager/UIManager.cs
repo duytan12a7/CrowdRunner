@@ -17,9 +17,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private ShopManager shopManager;
     [SerializeField] private Slider progressBar;
     [SerializeField] private Text levelText;
+    [SerializeField] private Text receiveCoinText;
 
     [Header(" Events")]
-    public static Action setLevelCompleteDelegate;
+    public static Action<int> setLevelCompleteDelegate;
 
     private void Start()
     {
@@ -82,12 +83,14 @@ public class UIManager : MonoBehaviour
 
     public void ShowGameOver()
     {
+        menuPanel.SetActive(false);
         gamePanel.SetActive(false);
         gameOverPanel.SetActive(true);
     }
 
     public void ShowLevelComplete()
     {
+        menuPanel.SetActive(false);
         gamePanel.SetActive(false);
         levelCompletePanel.SetActive(true);
     }
@@ -113,8 +116,9 @@ public class UIManager : MonoBehaviour
 
     public void HideShopPanel() => shopPanel.SetActive(false);
 
-    public void SetLevelComplete()
+    public void SetLevelComplete(int coin)
     {
+        receiveCoinText.text = "+" + coin;
         GameManager.Instance.SetGameState(GameManager.GameState.LevelComplete);
         PlayerPrefs.SetInt(Global.PrefsTag.Level, PlayerPrefs.GetInt(Global.PrefsTag.Level) + 1);
     }

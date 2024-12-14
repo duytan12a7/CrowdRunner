@@ -10,7 +10,7 @@ public class SquadController : MonoBehaviour
 
     [Header(" Elements ")]
     [SerializeField] private SquadFormation squadFormation;
-    [SerializeField] private SquadAnimator playerAnimator;
+    [SerializeField] private SquadAnimator squadAnimator;
     [SerializeField] private BonusRunnersParent bonusRunnersParent;
     private bool canMove;
 
@@ -33,7 +33,7 @@ public class SquadController : MonoBehaviour
 
     private void Start()
     {
-        playerAnimator = GetComponent<SquadAnimator>();
+        squadAnimator = GetComponent<SquadAnimator>();
 
         GameManager.OnGameStateChanged += GameStateChanged;
     }
@@ -92,14 +92,14 @@ public class SquadController : MonoBehaviour
     {
         canMove = true;
 
-        playerAnimator.Run();
+        squadAnimator.Run();
     }
 
     private void StopMoving()
     {
         canMove = false;
 
-        playerAnimator.Idle();
+        squadAnimator.Idle();
     }
 
     private void OnDestroy()

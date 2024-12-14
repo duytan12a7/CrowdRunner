@@ -9,7 +9,6 @@ public class Runner : MonoBehaviour
     private RunnerState runnerState;
 
     [Header(" Elements ")]
-    [SerializeField] private SquadSelector squadSelector;
     [SerializeField] private Animator animator;
     private bool isTarget;
 
