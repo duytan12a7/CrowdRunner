@@ -88,7 +88,7 @@ public class RoadManager : MonoBehaviour
 
     public static Vector3 GetFinishPosition() => instance.GetFinishLinePosition();
 
-    public int GetIntLevel() => PlayerPrefs.GetInt("level", 0);
+    public int GetIntLevel() => PlayerPrefs.GetInt(Global.PrefsTag.Level, 0);
 
 }
 

@@ -1970,7 +1970,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &399446978034661994
 Transform:
   m_ObjectHideFlags: 0
@@ -5214,7 +5214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &730624185531921170
 Transform:
   m_ObjectHideFlags: 0
@@ -11553,7 +11553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squadSelector: {fileID: 0}
-  animator: {fileID: 5201605491292263943}
+  animator: {fileID: 6010953367464321040}
 --- !u!136 &6670539437426369719
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -11613,9 +11613,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &6501183806485033602
 GameObject:

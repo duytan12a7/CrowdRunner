@@ -116,5 +116,6 @@ public class UIManager : MonoBehaviour
     public void SetLevelComplete()
     {
         GameManager.Instance.SetGameState(GameManager.GameState.LevelComplete);
+        PlayerPrefs.SetInt(Global.PrefsTag.Level, PlayerPrefs.GetInt(Global.PrefsTag.Level) + 1);
     }
 }

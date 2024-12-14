@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 895444077452007234}
   - component: {fileID: 8949082554186789909}
+  - component: {fileID: 2619433698611935233}
   m_Layer: 0
   m_Name: Finish Line
   m_TagString: Untagged
@@ -54,6 +55,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 12, y: 20, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2619433698611935233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121768533353796805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b846db48b0efee4499dcc8c7a7512a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 8949082554186789909}
 --- !u!1 &6628780045596826317
 GameObject:
   m_ObjectHideFlags: 0
