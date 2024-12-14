@@ -16,6 +16,7 @@ public class SquadController : MonoBehaviour
 
     [Header(" Settings ")]
     [SerializeField] private float moveSpeed;
+    private float currentMoveSpeed;
     [SerializeField] private float roadWidth;
 
     [Header(" Control ")]
@@ -29,13 +30,17 @@ public class SquadController : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+
+        SquadDetection.OnEnemiesDetected += SlowDown;
+        SquadDetection.OnNoEnemiesDetected += SpeedUp;
+        GameManager.OnGameStateChanged += GameStateChanged;
     }
 
     private void Start()
     {
         squadAnimator = GetComponent<SquadAnimator>();
 
-        GameManager.OnGameStateChanged += GameStateChanged;
+        currentMoveSpeed = moveSpeed;
     }
 
     private void Update()
@@ -48,12 +53,17 @@ public class SquadController : MonoBehaviour
 
     private void MoveFoward()
     {
-        transform.position += Vector3.forward * moveSpeed * Time.deltaTime; /* Vector3.forward (0, 0, 1) */
+        transform.position += Vector3.forward * currentMoveSpeed * Time.deltaTime; /* Vector3.forward (0, 0, 1) */
     }
 
-    public void SetMoveSpeed(float speed)
+    private void SpeedUp()
     {
-        moveSpeed = speed;
+        currentMoveSpeed = moveSpeed;
+    }
+
+    private void SlowDown()
+    {
+        currentMoveSpeed = moveSpeed / 4f;
     }
 
     private void ManageControl()
@@ -104,6 +114,8 @@ public class SquadController : MonoBehaviour
 
     private void OnDestroy()
     {
+        SquadDetection.OnEnemiesDetected -= SlowDown;
+        SquadDetection.OnNoEnemiesDetected -= SpeedUp;
         GameManager.OnGameStateChanged -= GameStateChanged;
     }
 }

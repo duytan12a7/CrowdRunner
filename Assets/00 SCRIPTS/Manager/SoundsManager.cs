@@ -15,14 +15,13 @@ public class SoundsManager : MonoBehaviour
     [Header(" Events ")]
     public static Action OnLevelComplete;
     public static Action OnGameOver;
-    public static Action OnRunnerDie;
 
     private void Start()
     {
         SquadDetection.OnDoorsHit += PlayDoorHitSound;
         OnLevelComplete += PlayLevelCompleteSound;
         OnGameOver += PlayGameOverSound;
-        OnRunnerDie += PlayRunnerDieSound;
+        Runner.OnRunnerDied += PlayRunnerDieSound;
     }
 
     private void OnDestroy()
@@ -30,7 +29,7 @@ public class SoundsManager : MonoBehaviour
         SquadDetection.OnDoorsHit -= PlayDoorHitSound;
         OnLevelComplete -= PlayLevelCompleteSound;
         OnGameOver -= PlayGameOverSound;
-        OnRunnerDie -= PlayRunnerDieSound;
+        Runner.OnRunnerDied -= PlayRunnerDieSound;
     }
 
     private void PlayDoorHitSound() => doorHitSound.Play();
@@ -39,7 +38,7 @@ public class SoundsManager : MonoBehaviour
 
     private void PlayGameOverSound() => gameOverSound.Play();
 
-    private void PlayRunnerDieSound() => runnerDieSound.Play();
+    private void PlayRunnerDieSound(Runner runner) => runnerDieSound.Play();
 
     public void EnableSounds()
     {

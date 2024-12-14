@@ -10,10 +10,19 @@ public class Runner : MonoBehaviour
 
     [Header(" Elements ")]
     [SerializeField] private Animator animator;
-    private bool isTarget;
+    [SerializeField] private Collider collider;
+    [SerializeField] private RunnerSelector runnerSelector;
+    private bool targeted;
 
     [Header(" Bonus Settings ")]
     private Vector3 targetPyramidLocalPosition;
+
+    [Header(" Effects ")]
+    [SerializeField] private ParticleSystem explodeParticles;
+
+
+    [Header(" Events ")]
+    public static Action<Runner> OnRunnerDied;
 
     void Start()
     {
@@ -41,10 +50,10 @@ public class Runner : MonoBehaviour
     }
     public void SetTarget()
     {
-        isTarget = true;
+        targeted = true;
     }
 
-    public bool IsTarget() => isTarget;
+    public bool IsTarget() => targeted;
 
     public void Stop()
     {
@@ -67,7 +76,23 @@ public class Runner : MonoBehaviour
         runnerState = RunnerState.Bonus;
     }
 
+    public void Explode()
+    {
+        collider.enabled = false;
+        runnerSelector.DisableRenderer();
+
+        explodeParticles.Play();
+
+        transform.parent = null;
+
+        OnRunnerDied?.Invoke(this);
+
+        Destroy(gameObject, 3);
+    }
+
     public Animator GetAnimator() => animator;
 
     public Animator SetAnimator(Animator animator) => this.animator = animator;
+
+    public Color GetColor() => runnerSelector.GetColor();
 }
