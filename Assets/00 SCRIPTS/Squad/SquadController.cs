@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class SquadController : MonoBehaviour
 {
-    private static PlayerController instance;
-    public static PlayerController Instance => instance;
+    private static SquadController instance;
+    public static SquadController Instance => instance;
 
     [Header(" Elements ")]
-    [SerializeField] private CrowdSystem crowdSystem;
-    [SerializeField] private PlayerAnimator playerAnimator;
+    [SerializeField] private SquadFormation squadFormation;
+    [SerializeField] private SquadAnimator playerAnimator;
+    [SerializeField] private BonusRunnersParent bonusRunnersParent;
     private bool canMove;
 
     [Header(" Settings ")]
@@ -32,8 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        crowdSystem = GameManager.Instance.CrowdSystem;
-        playerAnimator = GetComponent<PlayerAnimator>();
+        playerAnimator = GetComponent<SquadAnimator>();
 
         GameManager.OnGameStateChanged += GameStateChanged;
     }
@@ -73,8 +73,8 @@ public class PlayerController : MonoBehaviour
             Vector3 position = transform.position;
             position.x = clickedPlayerPosition.x + xScreenDifference;
 
-            position.x = Mathf.Clamp(position.x, -roadWidth / 2 + crowdSystem.GetCrowdRadius(),
-                roadWidth / 2 - crowdSystem.GetCrowdRadius());
+            position.x = Mathf.Clamp(position.x, -roadWidth / 2 + squadFormation.GetSquadRadius(),
+                roadWidth / 2 - squadFormation.GetSquadRadius());
 
             transform.position = position;
         }

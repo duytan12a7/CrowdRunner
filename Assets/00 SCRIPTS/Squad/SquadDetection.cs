@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerDetection : MonoBehaviour
+public class SquadDetection : MonoBehaviour
 {
     [Header(" Events ")]
     public static Action OnDoorsHit;
+    public static Action OnFinishLineCrossed;
 
     private void Update()
     {
@@ -29,15 +30,17 @@ public class PlayerDetection : MonoBehaviour
 
                 doors.Disable();
 
-                GameManager.Instance.CrowdSystem.ApplyBonus(bonusType, bonusAmount);
+                GameManager.Instance.SquadFormation.ApplyBonus(bonusType, bonusAmount);
 
                 OnDoorsHit?.Invoke();
             }
             else if (collider.tag == Global.FINISH_TAG)
             {
-                PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level") + 1);
+                // PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level") + 1);
 
-                GameManager.Instance.SetGameState(GameManager.GameState.LevelComplete);
+                // GameManager.Instance.SetGameState(GameManager.GameState.LevelComplete);
+
+                OnFinishLineCrossed?.Invoke();
             }
         }
     }

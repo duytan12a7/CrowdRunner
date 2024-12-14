@@ -19,7 +19,7 @@ public class SoundsManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerDetection.OnDoorsHit += PlayDoorHitSound;
+        SquadDetection.OnDoorsHit += PlayDoorHitSound;
         OnLevelComplete += PlayLevelCompleteSound;
         OnGameOver += PlayGameOverSound;
         OnRunnerDie += PlayRunnerDieSound;
@@ -27,7 +27,7 @@ public class SoundsManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        PlayerDetection.OnDoorsHit -= PlayDoorHitSound;
+        SquadDetection.OnDoorsHit -= PlayDoorHitSound;
         OnLevelComplete -= PlayLevelCompleteSound;
         OnGameOver -= PlayGameOverSound;
         OnRunnerDie -= PlayRunnerDieSound;

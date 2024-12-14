@@ -30,5 +30,5 @@ public class EndStairsBonus : MonoBehaviour
         }
     }
 
-    private float GetBonus(int lineIndex) => 1 + (lineIndex * bonusStep);
+    public float GetBonus(int lineIndex) => 1 + (lineIndex * bonusStep);
 }

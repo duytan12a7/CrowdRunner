@@ -1,20 +1,28 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class CrowdSystem : MonoBehaviour
+public class SquadFormation : MonoBehaviour
 {
     [Header(" Elements ")]
-    [SerializeField] private Transform runnersParent;
+    [SerializeField] private GameObject groupAmountBubble;
+    [SerializeField] private TextMeshPro squadAmountText;
     [SerializeField] private GameObject runnerPrefab;
+    [SerializeField] private BonusRunnersParent bonusRunnersParent;
 
     [Header(" Settings ")]
-    [SerializeField] private float radius;
+    [SerializeField] private float radiusFactor;
 
-    private void Start()
+    private void Awake()
     {
-        runnersParent = GameManager.Instance.RunnersParent;
+        SquadDetection.OnFinishLineCrossed += EnableBonusParentScript;
+    }
+
+    private void OnDestroy()
+    {
+        SquadDetection.OnFinishLineCrossed -= EnableBonusParentScript;
     }
 
     private void Update()
@@ -24,22 +32,24 @@ public class CrowdSystem : MonoBehaviour
 
         FermatSpiralPlace();
 
-        if (runnersParent.childCount < 1)
+        squadAmountText.text = transform.childCount.ToString();
+
+        if (transform.childCount < 1)
             GameManager.Instance.SetGameState(GameManager.GameState.GameOver);
     }
 
     private void FermatSpiralPlace()
     {
-        for (int i = 0; i < runnersParent.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             Vector3 childLocalPosition = GetRunnerLocalPosition(i);
-            runnersParent.GetChild(i).localPosition = childLocalPosition;
+            transform.GetChild(i).localPosition = childLocalPosition;
         }
     }
 
     private Vector3 GetRunnerLocalPosition(int index)
     {
-        float r = Mathf.Sqrt(index) * radius;
+        float r = Mathf.Sqrt(index) * radiusFactor;
         float theta = index * Global.GOLDEN_ANGLE * Mathf.Deg2Rad;
 
         // Chuyển từ toạ độ cực (r, θ) sang toạ độ Đề-các (Descartes)
@@ -49,7 +59,7 @@ public class CrowdSystem : MonoBehaviour
         return new Vector3(x, 0, z);
     }
 
-    public float GetCrowdRadius() => radius * Mathf.Sqrt(runnersParent.childCount);
+    public float GetSquadRadius() => radiusFactor * Mathf.Sqrt(transform.childCount);
 
     public void ApplyBonus(BonusType bonusType, int bonusAmount)
     {
@@ -64,36 +74,44 @@ public class CrowdSystem : MonoBehaviour
                 break;
 
             case BonusType.Multiply:
-                int runnersToAdd = (runnersParent.childCount * bonusAmount) - runnersParent.childCount;
+                int runnersToAdd = (transform.childCount * bonusAmount) - transform.childCount;
                 AddRunners(runnersToAdd);
                 break;
 
             case BonusType.Divide:
-                int runnerToSubtract = runnersParent.childCount - (runnersParent.childCount / bonusAmount);
+                int runnerToSubtract = transform.childCount - (transform.childCount / bonusAmount);
                 SubtractRunners(runnerToSubtract);
                 break;
         }
+    }
+
+    private void EnableBonusParentScript()
+    {
+        groupAmountBubble.SetActive(false);
+
+        bonusRunnersParent.enabled = true;
+        enabled = false;
     }
 
     private void AddRunners(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            GameObject runner = Instantiate(runnerPrefab, runnersParent);
-            runner.GetComponentInParent<PlayerAnimator>().Run();
+            GameObject runner = Instantiate(runnerPrefab, transform);
+            runner.GetComponentInParent<SquadAnimator>().Run();
         }
     }
 
     private void SubtractRunners(int amount)
     {
-        int runnersAmount = runnersParent.childCount;
+        int runnersAmount = transform.childCount;
 
         if (amount > runnersAmount)
             amount = runnersAmount;
 
         for (int i = runnersAmount - 1; i > runnersAmount - amount; i--)
         {
-            Transform runnerToDisable = runnersParent.GetChild(i);
+            Transform runnerToDisable = transform.GetChild(i);
             Destroy(runnerToDisable.gameObject);
         }
     }

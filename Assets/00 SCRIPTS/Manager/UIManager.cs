@@ -18,6 +18,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider progressBar;
     [SerializeField] private Text levelText;
 
+    [Header(" Events")]
+    public static Action setLevelCompleteDelegate;
+
     private void Start()
     {
         DefaultPanel();
@@ -26,6 +29,13 @@ public class UIManager : MonoBehaviour
         levelText.text = "Level " + (RoadManager.Instance.GetIntLevel() + 1);
 
         GameManager.OnGameStateChanged += GameStateChange;
+        setLevelCompleteDelegate += SetLevelComplete;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= GameStateChange;
+        setLevelCompleteDelegate -= SetLevelComplete;
     }
 
     private void DefaultPanel()
@@ -87,7 +97,7 @@ public class UIManager : MonoBehaviour
         if (!GameManager.Instance.IsGameState())
             return;
 
-        float progress = PlayerController.Instance.transform.position.z / RoadManager.Instance.GetFinishLineZ();
+        float progress = SquadController.Instance.transform.position.z / RoadManager.Instance.GetFinishLineZ();
         progressBar.value = progress;
     }
 
@@ -102,4 +112,9 @@ public class UIManager : MonoBehaviour
     }
 
     public void HideShopPanel() => shopPanel.SetActive(false);
+
+    public void SetLevelComplete()
+    {
+        GameManager.Instance.SetGameState(GameManager.GameState.LevelComplete);
+    }
 }

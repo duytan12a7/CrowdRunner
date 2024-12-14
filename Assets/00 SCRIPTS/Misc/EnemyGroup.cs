@@ -22,7 +22,7 @@ public class EnemyGroup : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) < 30f && !isEnable)
+        if (Vector3.Distance(transform.position, SquadController.Instance.transform.position) < 30f && !isEnable)
         {
             isEnable = true;
             EnableAllEnemies();
