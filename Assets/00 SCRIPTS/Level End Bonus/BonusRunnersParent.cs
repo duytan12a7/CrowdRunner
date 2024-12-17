@@ -6,6 +6,7 @@ public class BonusRunnersParent : MonoBehaviour
 {
     [Header("Events")]
     public static Action<int> OnLineDropped;
+    public static Action<int> OnPileOfCoin;
 
     [Header("Settings")]
     [SerializeField] private float xSpacing; [SerializeField]
@@ -146,8 +147,9 @@ public class BonusRunnersParent : MonoBehaviour
         int bonusIndex = Mathf.Max(0, currentStairBonusIndex - 2);
         int rewardCoins = (int)(endStairsBonus.GetBonus(bonusIndex) * rewardMultiplier);
 
-        DataManager.Instance.AddCoins(rewardCoins);
+        // DataManager.Instance.AddCoins(rewardCoins);
         UIManager.setLevelCompleteDelegate?.Invoke(rewardCoins);
+        OnPileOfCoin?.Invoke(rewardCoins);
     }
 }
 
