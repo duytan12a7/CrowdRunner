@@ -6,13 +6,20 @@ using System;
 public class SquadDetection : MonoBehaviour
 {
     [Header(" Events ")]
+    public static Action OnEnemiesDetected;
+    public static Action OnNoEnemiesDetected;
     public static Action OnDoorsHit;
     public static Action OnFinishLineCrossed;
+    [SerializeField] private LayerMask enemiesLayer;
+    [SerializeField] private float enemiesDetectionRadius;
+    private bool previousEnemiesDetected;
 
     private void Update()
     {
-        if (GameManager.Instance.IsGameState())
-            DetectedCollider();
+        if (!GameManager.Instance.IsGameState()) return;
+        
+        DetectedCollider();
+        DetectEnemies();
     }
 
     private void DetectedCollider()
@@ -41,5 +48,17 @@ public class SquadDetection : MonoBehaviour
                 OnFinishLineCrossed?.Invoke();
             }
         }
+    }
+
+    private void DetectEnemies()
+    {
+        bool enemiesDetected = Physics.OverlapSphere(transform.position, enemiesDetectionRadius, enemiesLayer).Length > 0;
+
+        if (enemiesDetected && !previousEnemiesDetected)
+            OnEnemiesDetected?.Invoke();
+        else if (!enemiesDetected && previousEnemiesDetected)
+            OnNoEnemiesDetected?.Invoke();
+
+        previousEnemiesDetected = enemiesDetected;
     }
 }
