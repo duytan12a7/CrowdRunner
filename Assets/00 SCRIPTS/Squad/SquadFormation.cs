@@ -42,21 +42,16 @@ public class SquadFormation : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            Vector3 childLocalPosition = GetRunnerLocalPosition(i);
-            transform.GetChild(i).localPosition = childLocalPosition;
+            Vector3 runnerTargetWorldPosition = GetFermatPosition(i);
+
+            Transform currentRunner = transform.GetChild(i);
+
+            Vector3 velocityDirection = runnerTargetWorldPosition - currentRunner.position;
+
+            Rigidbody runnerRig = currentRunner.GetComponent<Rigidbody>();
+
+            runnerRig.velocity = Vector3.Lerp(runnerRig.velocity, velocityDirection, 0.1f);
         }
-    }
-
-    private Vector3 GetRunnerLocalPosition(int index)
-    {
-        float r = Mathf.Sqrt(index) * radiusFactor;
-        float theta = index * Global.GOLDEN_ANGLE * Mathf.Deg2Rad;
-
-        // Chuyển từ toạ độ cực (r, θ) sang toạ độ Đề-các (Descartes)
-        float x = r * Mathf.Cos(theta);
-        float z = r * Mathf.Sin(theta);
-
-        return new Vector3(x, 0, z);
     }
 
     public float GetSquadRadius() => radiusFactor * Mathf.Sqrt(transform.childCount);
@@ -93,13 +88,32 @@ public class SquadFormation : MonoBehaviour
         enabled = false;
     }
 
-    private void AddRunners(int amount)
+    public void AddRunners(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            GameObject runner = Instantiate(runnerPrefab, transform);
+            Vector3 spawnPosition = GetFermatPosition(transform.childCount);
+
+            Runner runner = Instantiate(runnerPrefab, spawnPosition, Quaternion.identity, transform).GetComponent<Runner>();
+
             runner.GetComponentInParent<SquadAnimator>().Run();
+
+            runner.name = "Runner_" + runner.transform.GetSiblingIndex();
         }
+    }
+
+    private Vector3 GetFermatPosition(int index)
+    {
+        float r = Mathf.Sqrt(index) * radiusFactor;
+        float theta = index * Global.GOLDEN_ANGLE * Mathf.Deg2Rad;
+
+        float x = r * Mathf.Cos(theta);
+        float z = r * Mathf.Sin(theta);
+
+        Vector3 runnerLocalPosition = new(x, 0, z);
+        Vector3 runnerTargetWorldPosition = transform.TransformPoint(runnerLocalPosition);
+
+        return runnerTargetWorldPosition;
     }
 
     private void SubtractRunners(int amount)

@@ -10,6 +10,8 @@ public class SquadDetection : MonoBehaviour
     public static Action OnNoEnemiesDetected;
     public static Action OnDoorsHit;
     public static Action OnFinishLineCrossed;
+
+    [Header(" Settings ")]
     [SerializeField] private LayerMask enemiesLayer;
     [SerializeField] private float enemiesDetectionRadius;
     private bool previousEnemiesDetected;
@@ -17,7 +19,7 @@ public class SquadDetection : MonoBehaviour
     private void Update()
     {
         if (!GameManager.Instance.IsGameState()) return;
-        
+
         DetectedCollider();
         DetectEnemies();
     }
