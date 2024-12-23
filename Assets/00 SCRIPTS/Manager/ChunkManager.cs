@@ -55,9 +55,10 @@ public class RoadManager : MonoBehaviour
         for (int i = 0; i < levelSequences[currentLevel].chunks.Length; i++)
         {
             RoadChunk chunkToSpawn = levelSequences[currentLevel].chunks[i];
-            Instantiate(chunkToSpawn, spawnPos, Quaternion.identity, transform);
 
+            Instantiate(chunkToSpawn, spawnPos, Quaternion.identity, transform);
             spawnPos.z += chunkToSpawn.length;
+
             previousChunk = chunkToSpawn;
             levelChunks.Add(chunkToSpawn);
         }
