@@ -105,7 +105,7 @@ public class Enemy : MonoBehaviour
 
     private void StartMoving()
     {
-        GetComponent<Animator>().Play("Run");
+        GetComponentInChildren<Animator>().Play("Run");
         transform.parent = null;
 
         state = State.Running;
