@@ -16098,7 +16098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6680806352893511786
 Transform:
   m_ObjectHideFlags: 0
@@ -16523,7 +16523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508ce5a5e8b4e6e499cd6815580bb037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 745012791392981520}
+  animator: {fileID: 3789192814934534201}
   collider: {fileID: 6670539437426369719}
   runnerSelector: {fileID: 7778515219146638810}
   explodeParticles: {fileID: 39606162823575235}
@@ -18368,7 +18368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7094794622339084867
 Transform:
   m_ObjectHideFlags: 0

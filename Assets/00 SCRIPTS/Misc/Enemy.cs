@@ -15,14 +15,19 @@ public class Enemy : MonoBehaviour
 
     [Header(" Elements ")]
     [SerializeField] private Renderer renderer;
+    [SerializeField] private Animator animator;
 
-    [Header( "Settings")]
+    [Header("Settings")]
     [SerializeField] private float moveSpeed;
     private float attackTimer;
 
     [Header(" Events")]
     public static Action<Vector3, Color> OnEnemyDied;
 
+    private void OnEnable()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
 
     private void Update()
     {
@@ -105,7 +110,7 @@ public class Enemy : MonoBehaviour
 
     private void StartMoving()
     {
-        GetComponent<Animator>().Play("Run");
+        animator.Play("Run");
         transform.parent = null;
 
         state = State.Running;
